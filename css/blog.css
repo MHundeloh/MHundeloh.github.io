@@ -1,0 +1,26 @@
+@import url(/css/base.css);
+@import url(/css/font.css);
+@import url(/css/colors.css);
+div {
+    /*border: 1px solid black;*/
+    /*min-height: 15px;*/
+}
+
+.container {
+}
+
+.blog-post {
+    width: 90%;
+    margin: auto;
+}
+
+.blog-post-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-post-image > img {
+    height: auto;
+    width: 100%!important;
+    object-fit: cover;
+}
