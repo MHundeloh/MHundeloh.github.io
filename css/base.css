@@ -201,6 +201,10 @@
         display: inline-block;
     }
 
+    .btn-cta {
+        font-size: 1em;
+    }
+
 }
 
 @media (min-width: 1800px) {
@@ -228,11 +232,18 @@
         grid-template-rows: auto;
         grid-gap: 10px;
     }
+
     .nav-burger {
         display: none;
     }
+
     .nav-item {
         display: inline-block;
     }
+
+    .btn-cta {
+        font-size: 0.9em;
+    }
+
 }
 
