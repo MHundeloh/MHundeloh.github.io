@@ -119,7 +119,6 @@
     flex-direction: column;
     flex-wrap: wrap;
     gap: 5px;
-    align-content: center;
     padding-inline-start: 0;
 }
 
