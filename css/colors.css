@@ -2,3 +2,39 @@ body {
     background-color: #fff;
     color: #652017;
 }
+
+header {
+    border-right: 3px solid #ddd;
+    border-bottom: 3px solid #ddd;
+}
+
+footer {
+    border-top: 3px solid #ddd;
+    border-right: 3px solid #ddd;
+}
+
+.box {
+    background-color: #fff;
+}
+
+.box__highlight {
+    background-color: #ddd;
+}
+
+.card {
+    border-bottom: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+.subscribe {
+    border-bottom: 1px solid #ddd;
+}
+
+.btn-cta {
+    background: #a9392a;
+    color: white;
+}
+
+.copyright-text {
+    border-top: 1px solid #ddd;
+}

@@ -8,7 +8,8 @@
 </head>
 <body class="blog">
   <div class="container">
-    <div class="header box">
+    <!-- header -->
+    <header class="box">
       <div class="headline">
         <h1>FEND - Front End Nanodegree</h1>
         <h2>Blog</h2>
@@ -24,13 +25,12 @@
           <li class="nav-item"><a href="../index.html"><span class="h3">Home</span></a></li>
         </ul>
       </div>
-    </div>
-    <div class="sidebar"></div>
+    </header>
     <!-- main content -->
     <div class="main">
       <div class="blog-post">
         <div class="blog-post-image">
-          <img src="../images/weihnachtsbaum.jpg">
+          <img src="../images/weihnachtsbaum.jpg" title="Christmas tree" alt="Christmas tree">
         </div>
         <div class="blog-post-text">
           <h3 class="blog-post-title">
@@ -40,48 +40,77 @@
             <span>22. December 2022</span> | <span>Blog</span> | <span>by Matthias Hundeloh</span>
           </div>
           <div class="blog-post-content">
-            <h4>Shopping last gifts</h4>
-            <p class="blog-post-paragraph">
-              Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-              consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui
-              blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit
-              amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
-              erat volutpat.
-            </p>
+            <section class="blog-post-paragraph">
+              <h4>Shopping last gifts</h4>
+              <p>
+                Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
+                consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui
+                blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit
+                amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam
+                erat volutpat.
+              </p>
+            </section>
+            <section class="blog-post-paragraph">
+              <h4>Looking for a Christmas tree</h4>
+              <p>
+                Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
+                lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate
+                velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto
+                odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
+              </p>
+            </section>
+            <section class="blog-post-paragraph">
+              <h4>Come together with the family</h4>
+              <p>
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
+                invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
+                dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
+                dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
+                clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
+                consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
+                sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
+                sea takimata sanctus est Lorem ipsum dolor sit amet.
+              </p>
+            </section>
+            <section class="author-desc box box__highlight">
+              <div class="author-desc-photo">
+                <img src="../images/mh-avatar.jpg" alt="Author M.Hundeloh">
+              </div>
+              <div class="author-desc-text">
+                <h5>About Matthias Hundeloh</h5>
+                <p>
+                  Matthias is a german application developer at Arvato Systems GmbH resident in Gütersloh. <br>
+                  Due to his focus at backend functionalities he tries to enforce his frontend knowledge in HTML, CSS and JavaScript. <br>
+                  In his vacations he likes to travel around with his wife in a caravan to see the mountains or the seaside.
+                </p>
+                <div class="social-links">
+                  <a href="#">
+                    <img class="social-link-icon" src="../images/f_logo_RGB-White_58.png" alt="facebook logo">
+                  </a>
+                  <a href="#">
+                    <img class="social-link-icon" src="../images/Instagram_Glyph_White.png" alt="instagram logo">
+                  </a>
+                  <a href="#">
+                    <img class="social-link-icon" src="../images/linkedin-3-32.png" alt="linkedin logo">
+                  </a>
+                </div>
+              </div>
 
-            <h4>Looking for a Christmas tree</h4>
-            <p class="blog-post-paragraph">
-              Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit
-              lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate
-              velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto
-              odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.
-            </p>
-
-            <h4>Come together with the family</h4>
-            <p class="blog-post-paragraph">
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor
-              invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo
-              dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.
-              Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et
-              dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet
-              clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet,
-              consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat,
-              sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no
-              sea takimata sanctus est Lorem ipsum dolor sit amet.
-            </p>
+            </section>
           </div>
         </div>
         <a class="blog-post-back btn btn-cta" href="../blog.html">Back</a>
       </div>
     </div>
-    <!-- Footer -->
-    <div class="footer">
+    <!-- footer -->
+    <footer>
       <div class="subscribe">
         <form class="subscribe-form" action="#">
-          <input class="input-email" name="email">
+          <label for="email" class="h3 mt-auto">Become part of it!</label>
+          <input class="input-email" name="email" id="email">
           <button class="submit btn-cta" name="submit" type="submit">Submit</button>
         </form>
-        <div class="h3 mt-auto">Become part of it!</div>
       </div>
       <div class="footer-content">
         <ul class="link-list">
@@ -93,7 +122,7 @@
         </ul>
         <p class="copyright-text">© Matthias Hundeloh | 2022 - 2023</p>
       </div>
-    </div>
+    </footer>
   </div>
 </body>
 </html>

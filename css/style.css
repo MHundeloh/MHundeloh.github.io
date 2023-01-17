@@ -1,14 +1,7 @@
 @import url(/css/base.css);
 @import url(/css/font.css);
 @import url(/css/colors.css);
-div {
-    /*border: 1px solid black;*/
-    /*min-height: 15px;*/
-}
 
-.container {
-}
-
-.list-item-box__image > img {
+.card-image > img {
     width: 100%!important;
 }

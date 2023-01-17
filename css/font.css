@@ -20,3 +20,7 @@ a {
 .blog-post-subtitle {
     font-style: italic;
 }
+
+.author-desc-text {
+    font-size: 0.9em;
+}

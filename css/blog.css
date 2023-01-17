@@ -1,13 +1,6 @@
 @import url(/css/base.css);
 @import url(/css/font.css);
 @import url(/css/colors.css);
-div {
-    /*border: 1px solid black;*/
-    /*min-height: 15px;*/
-}
-
-.container {
-}
 
 .blog-post {
     width: 90%;
@@ -22,5 +15,19 @@ div {
 .blog-post-image > img {
     height: auto;
     width: 100%!important;
-    object-fit: cover;
+    object-fit: contain;
+}
+
+.author-desc {
+    display: flex;
+    gap: 2em;
+    margin: 15px 0;
+}
+
+.author-desc-photo > img {
+    height: 150px;
+}
+
+.social-link-icon {
+    width: 29px;
 }
