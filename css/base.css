@@ -70,7 +70,6 @@ header {
 
 footer {
     grid-area: ft;
-    padding: 15px;
 }
 
 .box {
@@ -183,7 +182,7 @@ footer {
     .container {
         width: 80%;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-template-rows: auto;
         grid-template-areas:
         "hd   hd   hd   hd"
@@ -223,7 +222,7 @@ footer {
     .container {
         width: 1600px;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(4, 1fr);
         grid-template-rows: auto;
         grid-template-areas:
         "hd   hd   hd   hd"
