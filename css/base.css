@@ -74,7 +74,8 @@ footer {
 }
 
 .box {
-    padding: 0 10px 10px 10px;
+    padding: 10px;
+    border-radius: 10px;
 }
 
 .box__highlight {
@@ -83,7 +84,6 @@ footer {
 
 .card {
     width: 90%;
-    list-style-type: none;
     min-height: 100px;
 }
 

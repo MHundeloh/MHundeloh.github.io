@@ -4,11 +4,13 @@ body {
 }
 
 header {
+    border: 1px solid #ddd;
     border-right: 3px solid #ddd;
     border-bottom: 3px solid #ddd;
 }
 
 footer {
+    border: 1px solid #ddd;
     border-top: 3px solid #ddd;
     border-right: 3px solid #ddd;
 }
@@ -22,8 +24,9 @@ footer {
 }
 
 .card {
-    border-bottom: 1px solid #ddd;
-    border-right: 1px solid #ddd;
+    border: 1px solid #ddd;
+    border-right: 2px solid #ddd;
+    border-bottom: 3px solid #ddd;
 }
 
 .subscribe {
