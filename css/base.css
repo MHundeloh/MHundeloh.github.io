@@ -122,16 +122,17 @@ footer {
 
 .subscribe {
     grid-area: ft;
-    display: flex;
-    flex-direction: row-reverse;
-    gap: 0.5em;
     padding-bottom: 15px;
-    line-height: 25px;
 }
 
 .subscribe-form {
     display: flex;
+    flex-direction: row;
     gap: 0.5em;
+}
+
+.subscribe-form > .input-email {
+    line-height: 35px;
 }
 
 .copyright-text {
@@ -169,13 +170,13 @@ footer {
 /* Media queries */
 /* up to iPads and tablets */
 @media (max-width: 768px) {
-    .subscribe {
-        flex-direction: column-reverse;
+    .subscribe-form {
+        flex-direction: column;
     }
 }
 
 /* small screens and laptops */
-@media (min-width: 769px) and (max-width: 1024px) {
+@media (min-width: 769px) {
     .main-content {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -186,7 +187,7 @@ footer {
 }
 
 /* desktops and large screens */
-@media (min-width: 1025px) and (max-width: 1799px) {
+@media (min-width: 1025px) {
     body {
         font-size: 1.15rem;
     }
@@ -207,10 +208,7 @@ footer {
     }
 
     .main-content {
-        display: grid;
         grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: auto;
-        grid-gap: 10px;
     }
 
     .nav-burger {
@@ -235,32 +233,10 @@ footer {
 
     .container {
         width: 1600px;
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: auto;
-        grid-template-areas:
-        "hd   hd   hd   hd"
-        "main main main main"
-        "ft   ft   ft   ft";
-    }
-
-    .main {
-        padding: 15px;
     }
 
     .main-content {
-        display: grid;
         grid-template-columns: repeat(4, 1fr);
-        grid-template-rows: auto;
-        grid-gap: 10px;
-    }
-
-    .nav-burger {
-        display: none;
-    }
-
-    .nav-item {
-        display: inline-block;
     }
 
     .btn-cta {
