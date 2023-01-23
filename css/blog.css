@@ -20,16 +20,3 @@
     object-fit: contain;
 }
 
-.author-desc {
-    display: flex;
-    gap: 2em;
-    margin: 15px 0;
-}
-
-.author-desc-photo > img {
-    height: 150px;
-}
-
-.social-link-icon {
-    width: 29px;
-}

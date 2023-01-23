@@ -1,18 +1,27 @@
+:root {
+    --color-background-primary: #fff;
+    --color-background-highlight: #ddd;
+    --color-primary: #652017;
+    --color-primary-border: #ddd;
+    --color-button-primary: #a9392a;
+    --color-button-secondary: #ddd;
+}
+
 body {
-    background-color: #fff;
-    color: #652017;
+    background-color: var(--color-background-primary);
+    color: var(--color-primary);
 }
 
 header {
-    border: 1px solid #ddd;
-    border-right: 3px solid #ddd;
-    border-bottom: 3px solid #ddd;
+    border: 1px solid var(--color-primary-border);
+    border-right: 3px solid var(--color-primary-border);
+    border-bottom: 3px solid var(--color-primary-border);
 }
 
 footer {
-    border: 1px solid #ddd;
-    border-top: 3px solid #ddd;
-    border-right: 3px solid #ddd;
+    border: 1px solid var(--color-primary-border);
+    border-top: 3px solid var(--color-primary-border);
+    border-right: 3px solid var(--color-primary-border);
 }
 
 .box {
@@ -20,24 +29,29 @@ footer {
 }
 
 .box__highlight {
-    background-color: #ddd;
+    background-color: var(--color-background-highlight);
 }
 
 .card {
-    border: 1px solid #ddd;
-    border-right: 2px solid #ddd;
-    border-bottom: 3px solid #ddd;
+    border: 1px solid var(--color-primary-border);
+    border-right: 2px solid var(--color-primary-border);
+    border-bottom: 3px solid var(--color-primary-border);
 }
 
 .subscribe {
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid var(--color-primary-border);
 }
 
 .btn-cta {
-    background: #a9392a;
+    background: var(--color-button-primary);
     color: white;
 }
 
+.btn-secondary {
+    background: var(--color-button-secondary);
+    color: var(--color-primary);
+}
+
 .copyright-text {
-    border-top: 1px solid #ddd;
+    border-top: 1px solid var(--color-primary-border);
 }
