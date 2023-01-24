@@ -24,6 +24,12 @@ a {
 .author-desc-text {
     font-size: 0.9em;
 }
+
 .xlarge {
     font-size: 1.4rem;
+}
+
+figcaption {
+    font-style: italic;
+    font-size: 0.9rem;
 }
