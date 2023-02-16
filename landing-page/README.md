@@ -25,6 +25,6 @@ In addition, I have added some helper functions to reuse and avoid duplicate cod
 
 ## Integration
 
-The Landing Page Project is part of all my projects residing at [GitHub](*https://github.com/MHundeloh.github.io)
+The Landing Page Project is part of all my projects residing at [GitHub](https://github.com/MHundeloh.github.io)
 
 You can switch to this project by clicking the second card on start page

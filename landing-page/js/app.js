@@ -22,7 +22,8 @@
  * Define Global Variables
  * 
 */
-let navbarList = document.querySelector('#navbar__list');
+const navbarList = document.querySelector('#navbar__list');
+const countOfSections = 4;
 
 /**
  * End Global Variables
@@ -30,15 +31,66 @@ let navbarList = document.querySelector('#navbar__list');
  * 
 */
 
-// Create menu item from section element with link to section anchor
+/**
+ * @description Create a paragraph (p) element
+ * @param content - Paragraph's content
+ * @returns {HTMLParagraphElement}
+ */
+function createParagraph(content) {
+    let paragraph = document.createElement("p");
+    paragraph.innerHTML = content;
+    return paragraph;
+}
+
+/**
+* @description Create section element
+* @param {number} index - The nth section to create
+*/
+function createSection(index) {
+    // create section element
+    const section = document.createElement("section");
+    section.setAttribute("id", "section" + index);
+    const sectionName = "Section " + index;
+    section.setAttribute("data-nav", sectionName);
+
+    // reset all css classes
+    section.className = "";
+    // initial active class only to first section
+    if (index === 1) {
+        section.classList.add("active");
+    }
+
+    // create sections div element
+    const div = document.createElement("div");
+    div.className = "landing__container";
+
+    // create sections div header element
+    const header = document.createElement("h2")
+    header.innerHTML = sectionName;
+
+    // append child elements to sections div element
+    div.appendChild(header);
+    div.appendChild(createParagraph("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi fermentum metus faucibus lectus pharetra dapibus. Suspendisse potenti. Aenean aliquam elementum mi, ac euismod augue. Donec eget lacinia ex. Phasellus imperdiet porta orci eget mollis. Sed convallis sollicitudin mauris ac tincidunt. Donec bibendum, nulla eget bibendum consectetur, sem nisi aliquam leo, ut pulvinar quam nunc eu augue. Pellentesque maximus imperdiet elit a pharetra. Duis lectus mi, aliquam in mi quis, aliquam porttitor lacus. Morbi a tincidunt felis. Sed leo nunc, pharetra et elementum non, faucibus vitae elit. Integer nec libero venenatis libero ultricies molestie semper in tellus. Sed congue et odio sed euismod."));
+    div.appendChild(createParagraph("Aliquam a convallis justo. Vivamus venenatis, erat eget pulvinar gravida, ipsum lacus aliquet velit, vel luctus diam ipsum a diam. Cras eu tincidunt arcu, vitae rhoncus purus. Vestibulum fermentum consectetur porttitor. Suspendisse imperdiet porttitor tortor, eget elementum tortor mollis non."));
+
+    // append div element to section
+    section.appendChild(div);
+    return section;
+}
+
+/**
+ * @description Create menu item from element with link to elements anchor
+ * @param {Element} element - Element for which a navigation item should be created
+ * @returns {HTMLLIElement}
+ */
 function createNavItem(element) {
-    const sectionId = element.id;
+    const elementId = element.id;
     const dataNav = element.dataset.nav;
 
     // build anchor element
     let anchorElement = document.createElement('a');
-    anchorElement.setAttribute('href', '#' + sectionId);
-    anchorElement.setAttribute('id', 'link_' + sectionId);
+    anchorElement.setAttribute('href', '#' + elementId);
+    anchorElement.setAttribute('id', 'link_' + elementId);
     anchorElement.innerText = dataNav;
     anchorElement.classList.add('menu__link');
 
@@ -49,17 +101,27 @@ function createNavItem(element) {
     return liElement;
 }
 
-// Helper function to get list of sections
+/**
+ * @description Helper function to get list of sections
+ * @returns {NodeListOf<Element>}
+ */
 function getSectionList() {
     return document.querySelectorAll('main section');
 }
 
-// Get DOMRect object for given element
+/**
+ * @description Get DOMRect object for given element
+ * @param {Element} element
+ * @returns {DOMRect}
+ */
 function getRectangle(element) {
     return element.getBoundingClientRect();
 }
 
-// Remove active class
+/**
+ * @description Remove active class
+ * @param {Element} el - Element which "active" class has to be removed
+ */
 function removeActiveClass(el) {
     el.classList.remove('active');
 }
@@ -70,7 +132,22 @@ function removeActiveClass(el) {
  * 
 */
 
-// build the nav
+/**
+ * @description init page content
+ */
+function initPage() {
+    const mainFrag = document.createDocumentFragment();
+    for (let index = 1; index <= countOfSections; index++) {
+        const sectionElement = createSection(index);
+        mainFrag.appendChild(sectionElement);
+    }
+    let mainElement = document.querySelector("main");
+    mainElement.appendChild(mainFrag);
+}
+
+/**
+ * @description build the nav
+ */
 function buildNavigation() {
     const navbarFrag = document.createDocumentFragment();
     const sectionList = getSectionList();
@@ -82,21 +159,30 @@ function buildNavigation() {
     navbarList.append(navbarFrag);
 }
 
-// Add class 'active' to section
+/**
+ * @description Add class 'active' to section - deactivate all others
+ * @param {Element} element - The section element which has to be activated
+ */
 function activateSection(element) {
     const sectionList = getSectionList();
     sectionList.forEach(removeActiveClass);
     element.classList.add('active');
 }
 
-// Add class 'active' to menu link
+/**
+ * @description Add class 'active' to menu link element
+ * @param element - Anchor element which has to be activated - deactivate all others
+ */
 function activateNavItem(element) {
     const navItemList = document.querySelectorAll('.menu__link');
     navItemList.forEach(removeActiveClass);
     element.classList.add('active');
 }
 
-// Scroll to anchor ID using scrollTO event
+/**
+ * @description Scroll to anchor ID using click event
+ * @param {Event} event - Click event
+ */
 function scrollToAnchor(event) {
     let target = event.target;
     event.preventDefault();
@@ -106,12 +192,13 @@ function scrollToAnchor(event) {
         element.scrollIntoView({
             behavior: 'smooth'
         });
-        // activateNavItem(target);
         activateSection(element);
     }
 }
 
-// Scroll listener for setting sections and corresponding menu link to active when near top of viewport
+/**
+ * @description Scroll listener for setting sections and corresponding menu link to active when near top of viewport
+ */
 function scrollListener() {
     const sectionList = getSectionList();
     for (const section of sectionList) {
@@ -130,11 +217,13 @@ function scrollListener() {
  * 
 */
 
+initPage();
+
 // Build menu 
 buildNavigation();
 
 // Scroll to section on link click
 navbarList.addEventListener('click', scrollToAnchor);
 
-// Set sections as active
+// Set sections as active on scroll event
 document.addEventListener('scroll', scrollListener);
