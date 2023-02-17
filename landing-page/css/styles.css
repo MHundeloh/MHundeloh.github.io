@@ -88,10 +88,13 @@ section {
     }
 }
 
-.navbar__menu .menu__link:hover {
-    background: #333;
-    color: #fff;
-    transition: ease 0.3s all;
+/* Apply hover pseudo class only on devices which support hover effects */
+@media (hover: hover) {
+    .navbar__menu .menu__link:hover {
+        background: #333;
+        color: #fff;
+        transition: ease 0.3s all;
+    }
 }
 
 .navbar__menu .menu__link.active {

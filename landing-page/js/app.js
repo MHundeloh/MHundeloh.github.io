@@ -46,7 +46,7 @@ function createParagraph(content) {
 * @description Create section element
 * @param {number} index - The nth section to create
 */
-function createSection(index) {
+function createSectionElement(index) {
     // create section element
     const section = document.createElement("section");
     section.setAttribute("id", "section" + index);
@@ -138,7 +138,7 @@ function removeActiveClass(el) {
 function initPage() {
     const mainFrag = document.createDocumentFragment();
     for (let index = 1; index <= countOfSections; index++) {
-        const sectionElement = createSection(index);
+        const sectionElement = createSectionElement(index);
         mainFrag.appendChild(sectionElement);
     }
     let mainElement = document.querySelector("main");
@@ -192,6 +192,7 @@ function scrollToAnchor(event) {
         element.scrollIntoView({
             behavior: 'smooth'
         });
+        // activateNavItem(target);
         activateSection(element);
     }
 }
@@ -203,9 +204,16 @@ function scrollListener() {
     const sectionList = getSectionList();
     for (const section of sectionList) {
         const rect = getRectangle(section);
-        if (rect['top'] <= 100 && rect['bottom'] >= 150) {
-            const navBarItem = document.querySelector("#link_" + section.getAttribute('id'));
-            activateNavItem(navBarItem);
+        const halfHeight = rect['height'] / 2;
+        const navBarItem = document.querySelector("#link_" + section.getAttribute('id'));
+        // activate section and nav bar item only when sections rectangle is half visible
+        if (rect['top'] <= halfHeight && rect['bottom'] >= halfHeight) {
+            // nav bar item only when scrolled down (window.scrollY > 0)
+            if (window.scrollY > 0) {
+                activateNavItem(navBarItem);
+            } else {
+                removeActiveClass(navBarItem);
+            }
             activateSection(section);
         }
     }
@@ -216,7 +224,7 @@ function scrollListener() {
  * Begin Events
  * 
 */
-
+// Init page content - create section elements
 initPage();
 
 // Build menu 

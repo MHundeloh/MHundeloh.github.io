@@ -1,0 +1,26 @@
+@import url(../../css/base.css);
+@import url(../../css/font.css);
+@import url(../../css/colors.css);
+
+.blog-post {
+    width: 90%;
+    margin: auto;
+}
+
+.blog-post-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+
+.blog-post-image {
+    margin: 0;
+}
+
+.blog-post-image > img {
+    height: auto;
+    width: 100%!important;
+    object-fit: contain;
+}
+
