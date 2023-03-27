@@ -1,10 +1,12 @@
+const appid = 'c0b3fad2c5722009da72ec926f358432';
+
 /* Global Variables */
-const apiKey = process.env.JS_APP_API_KEY+'&units=metric';
+const apiKey = appid + '&units=metric';
 const weatherAppBaseUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = d.getDate()+'.'+ (d.getMonth() + 1) +'.'+ d.getFullYear();
 
 // async postData function
 const postData = async (url = '', data = {}) => {
@@ -27,7 +29,7 @@ const saveData = async (data = {}) => {
     const url = '/set';
     const response = await postData(url, data);
     try {
-        return await response.json();
+        return response;
     } catch(error) {
         console.log('Error', error);
     }
@@ -38,29 +40,51 @@ const getWeatherData = async (location) => {
     const request = await fetch(url);
     try {
         const weatherData = await request.json();
-        console.log(weatherData);
-        console.log(weatherData.main.temp);
         return weatherData;
     } catch (error) {
         console.log('error', error);
     }
 }
 
-function updateUI(weatherData) {
+const getAllData = async () => {
+    const request = await fetch('/all');
+    try {
+        return request;
+    } catch (error) {
+        console.log('Error', error);
+    }
+}
+
+const updateUI = async () => {
     const entryHolder = document.querySelector('#entryHolder');
     const date = document.querySelector('#date');
     const temp = document.querySelector('#temp');
     const content = document.querySelector('#content');
-    date.innerHTML = newDate;
-    temp.innerHTML = weatherData.main.temp + ' degree';
-    content.innerHTML = 'content';
+    const request = await getAllData();
+    try {
+        const allData = await request.json();
+        date.innerHTML = '<b>Date: </b>' + newDate;
+        temp.innerHTML = '<b>Temperature: </b>' + allData.temp + ' degree';
+        content.innerHTML = '<b>Your feeling: </b>' + allData.mood;
+    } catch(error) {
+        console.log('Error', error);
+    }
 }
 
+
 const generateButton = document.querySelector('#generate');
-generateButton.addEventListener('click', ()=> {
+generateButton.addEventListener('click', performAction);
+
+function performAction(e) {
     const zip = document.querySelector('#zip').value;
+    const feelings = document.querySelector('#feelings').value;
+
     getWeatherData(zip)
-        // .then(saveData)
-        .then(updateUI)
-    ;
-})
+        .then(function(data){
+            saveData({date: newDate, temp: data.main.temp, mood: feelings})
+                .then(
+                    updateUI()
+                )
+
+        })
+}

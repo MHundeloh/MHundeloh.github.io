@@ -28,6 +28,7 @@ const port = 3000;
 const server = app.listen(port, () => {
     console.log('Server started');
     console.log(`Listening on port ${port}`);
+    console.log(JSON.stringify(projectData));
 });
 
 // Server functions
@@ -37,8 +38,8 @@ function sendData (request, response) {
 
 function addProjectData(request, response) {
     projectData = request.body;
-    console.log(projectData);
-    return projectData;
+    console.log("addProjectData: "+ JSON.stringify(projectData));
+    return JSON.stringify(projectData);
 }
 
 // GET routes
