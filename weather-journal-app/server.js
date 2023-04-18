@@ -37,9 +37,15 @@ function sendData (request, response) {
     response.send(projectData);
 }
 
-/* add given data to prject data */
+/* add given data to project data */
 function addProjectData(request, response) {
-    projectData = request.body;
+    const data = request.body;
+    projectData = {
+        date : data.date,
+        temp : data.temp,
+        name : data.name,
+        content : data.content
+    }
     console.log("addProjectData: "+ JSON.stringify(projectData));
     response.send(projectData);
 }

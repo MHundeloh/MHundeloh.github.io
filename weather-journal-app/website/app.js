@@ -1,6 +1,11 @@
 /* Global Variables */
 const weatherAppBaseUrl = 'https://api.openweathermap.org/data/2.5/weather?units=metric&q=';
 
+// Personal API Key for OpenWeatherMap API
+// Note:
+// to avoid having an api key in source code the api key will be retrieved asynchronously
+// when generating the OpenWeather API url
+
 // Create a new date instance dynamically with JS
 let d = new Date();
 let newDate = d.getDate()+'.'+ (d.getMonth() + 1) +'.'+ d.getFullYear();
@@ -85,11 +90,12 @@ const updateUI = async () => {
         const allData = await request.json();
         if (allData !== undefined) {
             date.innerHTML = '<b>Date: </b>' + newDate;
-            temp.innerHTML = '<b>Temperature: </b>' + allData.temp + ' degree in ' + allData.name;
-            content.innerHTML = '<b>Your feeling: </b>' + allData.mood;
+            temp.innerHTML = '<b>Temperature: </b>' + Math.round(allData.temp) + ' &#8451; in ' + allData.name;
+            content.innerHTML = '<b>Your feeling: </b>' + allData.content;
         }
     } catch(error) {
         console.log('Error', error);
+        showMessage(error);
     }
 }
 
@@ -103,14 +109,10 @@ const showMessage = (messageText) => {
         message.innerHTML = '';
     }
     message.setAttribute('id', 'message');
-    message.innerHTML = messageText;
+    message.innerHTML = '<b>Warning: </b>' + messageText;
     entryHolder.appendChild(message);
 
 }
-
-/* add event listener to generate button */
-const generateButton = document.querySelector('#generate');
-generateButton.addEventListener('click', performAction);
 
 /* main action */
 function performAction(e) {
@@ -120,12 +122,16 @@ function performAction(e) {
     getWeatherData(zip)
         .then(function(data){
             if (data.main !== undefined) {
-                saveData({date: newDate, temp: data.main.temp, name: data.name, mood: feelings})
+                saveData({date: newDate, temp: data.main.temp, name: data.name, content: feelings})
                     .then(
                         updateUI()
                     )
             } else {
-                showMessage('<b>Warning: </b>weather data cannot be retrieved - ' + data.message + ' #' + data.cod);
+                showMessage('weather data cannot be retrieved - ' + data.message + ' #' + data.cod);
             }
         })
 }
+
+/* add event listener to generate button */
+const generateButton = document.querySelector('#generate');
+generateButton.addEventListener('click', performAction);

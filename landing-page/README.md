@@ -2,7 +2,7 @@
 
 ## Table of Contents
 
-* [Desciption](#description)
+* [Description](#description)
 * [Installation](#installation)
 * [Project structure](#project-structure)
 * [Dependencies](#dependencies)
