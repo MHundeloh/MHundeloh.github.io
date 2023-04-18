@@ -32,18 +32,23 @@ const server = app.listen(port, () => {
 });
 
 // Server functions
+/* sending project data to the frontend */
 function sendData (request, response) {
     response.send(projectData);
 }
 
+/* add given data to prject data */
 function addProjectData(request, response) {
     projectData = request.body;
     console.log("addProjectData: "+ JSON.stringify(projectData));
-    return JSON.stringify(projectData);
+    response.send(projectData);
 }
 
 // GET routes
 app.get('/all', sendData);
+app.get('/apikey', (request, response) => {
+    response.send({'apikey': process.env.API_KEY});
+})
 
 // POST routes
 app.post('/set', addProjectData);

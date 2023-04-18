@@ -1,8 +1,5 @@
-const appid = 'c0b3fad2c5722009da72ec926f358432';
-
 /* Global Variables */
-const apiKey = appid + '&units=metric';
-const weatherAppBaseUrl = 'https://api.openweathermap.org/data/2.5/weather?q=';
+const weatherAppBaseUrl = 'https://api.openweathermap.org/data/2.5/weather?units=metric&q=';
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -25,6 +22,7 @@ const postData = async (url = '', data = {}) => {
     }
 }
 
+/* save data to project data */
 const saveData = async (data = {}) => {
     const url = '/set';
     const response = await postData(url, data);
@@ -35,17 +33,35 @@ const saveData = async (data = {}) => {
     }
 }
 
+/* retrieve API key from backend */
+const getApiKey = async () => {
+    const response = await fetch('/apikey');
+    try {
+        const res = await response.json();
+        return res.apikey;
+    } catch(error) {
+        console.log('Error', error);
+    }
+}
+
+/* Generate API url */
+const urlGenerator = async (zip) => {
+    const apiKey = await getApiKey();
+    return weatherAppBaseUrl + zip + '&APPID=' + apiKey;
+}
+
+/* Get weather data for given location */
 const getWeatherData = async (location) => {
-    const url = weatherAppBaseUrl + location + '&APPID=' + apiKey;
+    const url = await urlGenerator(location);
     const request = await fetch(url);
     try {
-        const weatherData = await request.json();
-        return weatherData;
+        return await request.json();
     } catch (error) {
         console.log('error', error);
     }
 }
 
+/* Call server for data */
 const getAllData = async () => {
     const request = await fetch('/all');
     try {
@@ -55,36 +71,61 @@ const getAllData = async () => {
     }
 }
 
+/* Update UI with weather data */
 const updateUI = async () => {
-    const entryHolder = document.querySelector('#entryHolder');
     const date = document.querySelector('#date');
     const temp = document.querySelector('#temp');
     const content = document.querySelector('#content');
+    const message = document.querySelector('#message');
+    if (message !== null) {
+        message.remove();
+    }
     const request = await getAllData();
     try {
         const allData = await request.json();
-        date.innerHTML = '<b>Date: </b>' + newDate;
-        temp.innerHTML = '<b>Temperature: </b>' + allData.temp + ' degree';
-        content.innerHTML = '<b>Your feeling: </b>' + allData.mood;
+        if (allData !== undefined) {
+            date.innerHTML = '<b>Date: </b>' + newDate;
+            temp.innerHTML = '<b>Temperature: </b>' + allData.temp + ' degree in ' + allData.name;
+            content.innerHTML = '<b>Your feeling: </b>' + allData.mood;
+        }
     } catch(error) {
         console.log('Error', error);
     }
 }
 
+/* show message */
+const showMessage = (messageText) => {
+    const entryHolder = document.querySelector('#entryHolder');
+    let message = document.querySelector('#message');
+    if (message === null) {
+        message = document.createElement('div');
+    } else {
+        message.innerHTML = '';
+    }
+    message.setAttribute('id', 'message');
+    message.innerHTML = messageText;
+    entryHolder.appendChild(message);
 
+}
+
+/* add event listener to generate button */
 const generateButton = document.querySelector('#generate');
 generateButton.addEventListener('click', performAction);
 
+/* main action */
 function performAction(e) {
     const zip = document.querySelector('#zip').value;
     const feelings = document.querySelector('#feelings').value;
 
     getWeatherData(zip)
         .then(function(data){
-            saveData({date: newDate, temp: data.main.temp, mood: feelings})
-                .then(
-                    updateUI()
-                )
-
+            if (data.main !== undefined) {
+                saveData({date: newDate, temp: data.main.temp, name: data.name, mood: feelings})
+                    .then(
+                        updateUI()
+                    )
+            } else {
+                showMessage('<b>Warning: </b>weather data cannot be retrieved - ' + data.message + ' #' + data.cod);
+            }
         })
 }
