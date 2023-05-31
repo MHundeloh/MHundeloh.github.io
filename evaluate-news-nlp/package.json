@@ -1,0 +1,35 @@
+{
+  "name": "example-project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node src/server/index.js",
+    "build-prod": "webpack --config webpack.prod.js",
+    "build-dev": "webpack-dev-server  --config webpack.dev.js --open"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "dotenv": "^16.1.1",
+    "express": "^4.17.1",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.22.1",
+    "@babel/preset-env": "^7.22.4",
+    "babel-loader": "^9.1.2",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
+    "html-webpack-plugin": "^5.5.1",
+    "mini-css-extract-plugin": "^2.7.6",
+    "node-sass": "^9.0.0",
+    "optimize-css-assets-webpack-plugin": "^6.0.1",
+    "style-loader": "^3.3.3",
+    "terser-webpack-plugin": "^5.3.9",
+    "webpack-dev-server": "^4.15.0"
+  }
+}

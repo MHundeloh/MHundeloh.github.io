@@ -50,9 +50,12 @@ This landing page is build with HTML, CSS and JavaScript.
   - Express
   - Body-Parser
   - Cors
+  - Dotenv
 - Clone the main repository from [GitHub](https://github.com/MHundeloh/MHundeloh.github.io)
 - Set up a free OpenWeather account and generate an API key
-- Add an environment variable API_KEY for the API key in your operating system
+- Add an environment variable API_KEY for the API key in a .env file
+  - e.g. API_KEY="abcd1234xyz"
+  - the .env file should be .gitignore(d)
 - Start a local webserver in a shell by calling 
 ```
 node server.js
