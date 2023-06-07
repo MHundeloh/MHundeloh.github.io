@@ -9,29 +9,27 @@
 
         <header>
             <div class="">
-                Logo
-            </div>
-            <div class="">
-                navigation
+                <h1>Sentiment Analysis with meaning cloud</h1>
             </div>
         </header>
 
         <main>
             <section>
                 <form class="">
-                    <textarea id="input_text" name="input" placeholder="Your text"></textarea>
-                    <input type="button" name="" value="submit" onclick="return Client.handleSubmit(event)">
+                    <label for="input_text">Enter your text for analysis</label>
+                    <textarea id="input_text" name="input" placeholder="Your text" rows="10"></textarea>
+                    <input type="button" name="" value="analyze" onclick="return Client.handleSubmit(event)">
                 </form>
             </section>
 
             <section>
-                <strong>Form Results:</strong>
+                <h2>Results</h2>
                 <div id="results"></div>
             </section>
         </main>
 
         <footer>
-            <p>This is a footer</p>
+            <p>(c) Matthias Hundeloh 2023</p>
         </footer>
 
     </body>
