@@ -5,8 +5,12 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
 module.exports = {
     entry: './src/client/index.js',
+    output: {
+        libraryTarget: 'var',
+        library: 'Client'
+    },
     mode: 'development',
-    devtool: 'source-map',
+    devtool: 'inline-source-map',
     stats: 'verbose',
     module: {
         rules: [
@@ -16,7 +20,7 @@ module.exports = {
                 loader: "babel-loader"
             },
             {
-                test: /.scss$/,
+                test: /\.s?css$/,
                 use: ["style-loader", "css-loader", "sass-loader"]
             }
         ]
@@ -29,11 +33,17 @@ module.exports = {
         new CleanWebpackPlugin({
             // Simulate the removal of files
             dry: true,
+            // cleanOnceBeforeBuildPatterns: [path.join(__dirname, "dist/**/*")],
             // Write Logs to Console
             verbose: true,
             // Automatically remove all unused webpack assets on rebuild
             cleanStaleWebpackAssets: true,
             protectWebpackAssets: false
         })
-    ]
+    ],
+    // devServer: {
+    //     static: {
+    //         directory: path.join(__dirname, 'dist'),
+    //     }
+    // }
 }
