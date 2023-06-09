@@ -41,9 +41,4 @@ module.exports = {
             protectWebpackAssets: false
         })
     ],
-    // devServer: {
-    //     static: {
-    //         directory: path.join(__dirname, 'dist'),
-    //     }
-    // }
 }

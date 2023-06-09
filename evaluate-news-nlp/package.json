@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
     "start": "node src/server/index.js",
     "build-prod": "webpack --config webpack.prod.js",
     "build-dev": "webpack-dev-server  --config webpack.dev.js --open"
@@ -26,6 +26,9 @@
     "css-loader": "^6.7.4",
     "css-minimizer-webpack-plugin": "^5.0.0",
     "html-webpack-plugin": "^5.5.1",
+    "jest": "^29.5.0",
+    "jest-environment-jsdom": "^29.5.0",
+    "jsdom": "^22.1.0",
     "mini-css-extract-plugin": "^2.7.6",
     "node-sass": "^9.0.0",
     "sass-loader": "^13.3.0",

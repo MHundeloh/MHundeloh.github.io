@@ -66,6 +66,7 @@ app.post('/analyze', analyzeText);
 
 /* GET request route for test */
 app.get('/test', function (req, res) {
+    console.log("called /test");
     res.send(mockAPIResponse)
 })
 

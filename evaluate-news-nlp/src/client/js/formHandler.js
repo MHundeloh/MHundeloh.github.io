@@ -1,3 +1,5 @@
+import { prepareData, prepareTableRow } from "./prepareData";
+
 // async postData function
 const postData = async (url = '', data = {}) => {
     const response = await fetch(url, {
@@ -16,42 +18,6 @@ const postData = async (url = '', data = {}) => {
     }
 }
 
-// prepare table row element
-const prepareTableRow = (rowTag, cellTag, data) => {
-    let row = document.createElement(rowTag);
-    for (const element of data) {
-        let cell = document.createElement(cellTag);
-        cell.innerHTML = element;
-        row.appendChild(cell);
-    }
-    return row;
-
-}
-
-// prepare data for UI
-const prepareData = (data) => {
-
-    let table = document.createElement('table');
-    if (data.sentence_list !== undefined) {
-        let table_head = document.createElement('thead');
-        let head_row = prepareTableRow('tr', 'th', ['Level', 'Text', 'Score tag', 'Agreement', 'Confidence']);
-        table_head.appendChild(head_row);
-        table.appendChild(table_head);
-        let table_body = document.createElement('tbody');
-        let first_row = prepareTableRow('tr', 'td', ['Global', data.irony, data.score_tag, data.agreement, data.confidence])
-        table_body.appendChild(first_row);
-        for (const sentence of data.sentence_list) {
-            let table_row = prepareTableRow('tr', 'td', ['Sentence', sentence.text, sentence.score_tag, sentence.agreement, sentence.confidence])
-            table_body.appendChild(table_row);
-            for (const segment of sentence.segment_list) {
-                let table_row = prepareTableRow('tr', 'td', ['Segment', segment.text, segment.score_tag, segment.agreement, segment.confidence])
-                table_body.appendChild(table_row)
-            }
-        }
-        table.appendChild(table_body)
-    }
-    return table;
-}
 
 /* Update UI  */
 const updateUI = async (formText) => {
@@ -75,6 +41,9 @@ function handleSubmit(event) {
 
     // check what text was put into the form field
     let formText = document.getElementById('input_text').value
+    if (formText === '') {
+        alert("The text field should not be empty")
+    }
     updateUI(formText)
 }
 
