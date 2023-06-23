@@ -13,6 +13,7 @@ const prepareTableRow = (rowTag, cellTag, data) => {
 // prepare data for UI
 const prepareData = (data) => {
 
+    console.log(data);
     let table = document.createElement('table');
     if (data !== undefined && data.sentence_list !== undefined) {
         let table_head = document.createElement('thead');
@@ -31,6 +32,12 @@ const prepareData = (data) => {
             }
         }
         table.appendChild(table_body)
+    } else {
+        let table_body = document.createElement('tbody');
+        let table_row = prepareTableRow('tr', 'td', ['nothing found to analyze']);
+        table_body.appendChild(table_row);
+        table.appendChild(table_body);
+        console.log(data);
     }
     return table;
 }

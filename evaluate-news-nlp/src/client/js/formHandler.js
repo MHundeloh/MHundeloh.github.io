@@ -1,4 +1,5 @@
 import { prepareData, prepareTableRow } from "./prepareData";
+import { isValidUrl } from "./isValidUrl";
 
 // async postData function
 const postData = async (url = '', data = {}) => {
@@ -42,10 +43,16 @@ function handleSubmit(event) {
     // check what text or URL was put into the form field
     let formText = document.getElementById('input_text').value;
     let formUrl = document.getElementById('input_url').value;
-    if (formText === '' && formUrl === '') {
-        alert("At least the text field or the url field should not be empty")
+    if (formText === '') {
+        if (formUrl === '') {
+            alert("At least the text field or the url field should not be empty")
+        } else {
+            if (!isValidUrl(formUrl)) {
+                alert(formUrl + " is not a valid URL")
+            }
+        }
     }
-    updateUI(formText, formUrl)
+    updateUI(formText, formUrl);
 }
 
 export { handleSubmit }

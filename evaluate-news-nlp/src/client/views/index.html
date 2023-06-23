@@ -15,7 +15,7 @@
 
         <main>
             <section>
-                <form class="">
+                <form class="" method="post">
                     <label for="input_text">Enter your text for analysis (preferred)</label>
                     <textarea id="input_text" name="input" placeholder="Your text" rows="10"></textarea>
                     <label for="input_url">Enter a valid URL for analysis</label>
@@ -35,4 +35,13 @@
         </footer>
 
     </body>
+    <script>
+        // Check if workers are supported
+        if ('serviceWorker' in navigator) {
+            // Use the window load event to keep the page load performant
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            })
+        }
+    </script>
 </html>
