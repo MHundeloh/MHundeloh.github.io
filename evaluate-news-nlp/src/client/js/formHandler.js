@@ -20,11 +20,11 @@ const postData = async (url = '', data = {}) => {
 
 
 /* Update UI  */
-const updateUI = async (formText) => {
+const updateUI = async (formText, formUrl) => {
     const results = document.querySelector('#results');
     results.innerHTML = '';
     try {
-        const request = await postData('http://localhost:8080/analyze', {formText});
+        const request = await postData('http://localhost:8080/analyze', {'text':formText, 'url':formUrl});
         const data = await request.json();
         if (data !== undefined) {
             results.appendChild(prepareData(data));
@@ -39,12 +39,13 @@ const updateUI = async (formText) => {
 function handleSubmit(event) {
     event.preventDefault()
 
-    // check what text was put into the form field
-    let formText = document.getElementById('input_text').value
-    if (formText === '') {
-        alert("The text field should not be empty")
+    // check what text or URL was put into the form field
+    let formText = document.getElementById('input_text').value;
+    let formUrl = document.getElementById('input_url').value;
+    if (formText === '' && formUrl === '') {
+        alert("At least the text field or the url field should not be empty")
     }
-    updateUI(formText)
+    updateUI(formText, formUrl)
 }
 
 export { handleSubmit }

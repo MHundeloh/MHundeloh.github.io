@@ -28,10 +28,15 @@ console.log(__dirname)
 /* asynchronous function for calling text analysis api */
 async function analyzeText(req, resp) {
     try {
-        const text = req.body;
+        const request = req.body;
+        console.log(request);
         const formdata = new FormData();
         formdata.append("key", apikey);
-        formdata.append("txt", text.formText);
+        if (request.text !== '') {
+            formdata.append("txt", request.text);
+        } else {
+            formdata.append('url', request.url);
+        }
         formdata.append("lang", "en");  // 2-letter code, like en es fr ...
 
         const requestOptions = {

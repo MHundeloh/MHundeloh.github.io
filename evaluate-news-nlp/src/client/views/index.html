@@ -16,8 +16,10 @@
         <main>
             <section>
                 <form class="">
-                    <label for="input_text">Enter your text for analysis</label>
+                    <label for="input_text">Enter your text for analysis (preferred)</label>
                     <textarea id="input_text" name="input" placeholder="Your text" rows="10"></textarea>
+                    <label for="input_url">Enter a valid URL for analysis</label>
+                    <input id="input_url" type="url" name="url" placeholder="URL to analyze">
                     <input type="button" name="" value="analyze" onclick="return Client.handleSubmit(event)">
                 </form>
             </section>
