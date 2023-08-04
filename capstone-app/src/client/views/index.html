@@ -2,31 +2,43 @@
 <html lang="en" dir="ltr">
     <head>
         <meta charset="UTF-8">
-        <title>Weather Journal</title>
+        <link href="https://fonts.googleapis.com/css?family=Oswald:400,600,700|Ranga:400,700&display=swap" rel="stylesheet">
+        <title>Capston - Travel Weather Forecast App</title>
     </head>
     <body>
-        <div id = "app">
-            <div class ="holder headline">
-                Weather Journal App
+        <header>
+            <div class ="headline">
+                Capston - Travel Weather Forecast App
             </div>
-            <div class ="holder zip">
-                <label for="city">Enter a city name here</label>
-                <input type="text" id="city" placeholder="enter your destination here">
-            </div>
-            <div class="holder date">
-                <label for="start">Start date</label>
-                <input type="date" id="start" name="trip-start">
-                <button id="generate" type = "submit"> Generate </button>
-            </div>
-            <div class ="holder entry">
-                <div class = "title">Most Recent Entry</div>
-                <div id="entryHolder">
+        </header>
+        <main id = "app">
+            <section class="panel">
+                <div class="input-group">
+                    <div class ="city">
+                        <label for="city">Enter your destination name here</label>
+                        <input type="text" id="city" placeholder="enter your destination here">
+                    </div>
+                    <div class="date">
+                        <label for="start">Your journey starts at</label>
+                        <input type="date" id="start" name="trip-start">
+                    </div>
+                    <div class="submit">
+                        <button id="generate" type="submit"> Generate </button>
+                    </div>
+                </div>
+            </section>
+            <section id="result-holder" class="panel">
+                <h2 id="title">Here comes the weather for <span id="destination"></span></h2>
+                <div class ="entry">
                     <div id="image"></div>
-                    <div id="destination"></div>
                     <div id="date"></div>
                     <div id="weather"></div>
                 </div>
-            </div>
-        </div>
+                <div id="messageHolder"></div>
+            </section>
+        </main>
+        <footer>
+            <p>(c) Matthias Hundeloh 2023</p>
+        </footer>
     </body>
 </html>

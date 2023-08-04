@@ -1,30 +1,67 @@
+$primary-color: #545454;
+$border-color: $primary-color;
+
 body{
-    background: #fffff8;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background: #eeeeee;
     font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-#app{
-    display: grid;
-    grid-auto-rows: minmax(100px, auto);
-    /* grid-template-columns:  */
-    height:98vh;
-    background: #0dbb0d;
-    color: #f0d43a;
-    justify-content: center;
-    grid-gap: 1em;
-    font-size: 20px;
     font-family: 'Oswald', sans-serif;
+    font-size: 20px;
+    color: $primary-color;
 }
 
-.holder{
+main{
+    //display: grid;
+    width: 900px;
+    margin: 60px auto;
+    //grid-auto-rows: minmax(100px, auto);
+    /* grid-template-columns:  */
+    //height:90vh;
+    //background: #eeeeee;
+    //justify-content: center;
+    //grid-gap: 1em;
+}
+section {
+    margin-bottom: 40px;
+}
+
+h2, h3 {
+    margin-bottom: 20px;
+}
+h2{
+    font-size: 1.5rem;
+}
+h3{
+    font-size: 1.2rem;
+}
+
+.panel {
+    border: 2px solid $border-color;
+    border-radius: 5px;
+    box-shadow: 2px 4px 5px #444;
+    padding: 20px;
+}
+
+.input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#result-holder {
+    display: none;
+}
+
+#title{
 
 }
 
-.entry{
-    background: rgba(59, 74, 107, .4);
-}
+#image {
 
-#entryHolder{
+}
+#destination{
 
 }
 
@@ -32,32 +69,25 @@ body{
 
 }
 
-#temp{
-
-}
-
-#content{
+#weather{
 
 }
 
 .headline {
 
 }
-.title{
-
-}
 
 /*  Basic Styling To Override Default For Basic HTML Elements */
 label{
     display:block;
-    font-size: 27px;
+    font-size: 1.5rem;
 }
 
 input{
     display:block;
     height: 60px;
     width: 320px;
-    background:#22b2da;
+    background:#fffff8;
     color: #f0d43a;
     font-size: 20px;
     font-family: 'Oswald', sans-serif;
@@ -65,7 +95,7 @@ input{
 }
 
 button{
-    width: 400px;
+    width: auto;
     height: 100px;
     background: #3b4a6b;
     color: #f0d43a;

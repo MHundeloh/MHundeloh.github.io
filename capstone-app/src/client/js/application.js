@@ -4,6 +4,7 @@ const weatherIconUrl = 'https://www.weatherbit.io/static/img/icons/';
 const geoNameAppBaseUrl = 'http://api.geonames.org/searchJSON?maxRows=3&q=';
 const imageAppBaseUrl = 'https://pixabay.com/api/';
 const forecastDays = 7;
+const resultHolder = document.querySelector('#result-holder');
 
 // Personal API Key for OpenWeatherMap API
 // Note:
@@ -88,9 +89,9 @@ const getGeoData = async (city) => {
 }
 
 /* Get weather data for given coordinates and date */
-const getWeatherData = async(lat, lon, startDateString) => {
+const getWeatherData = async(lat, lon, startDate) => {
     /* @todo calculate forecast from startDate */
-    const startDate = new Date(startDateString);
+    // const startDate = new Date(startDateString);
     // if (startDate > currDate) {
     //     const forecast = 'false';
     // } else {
@@ -144,7 +145,10 @@ const updateUI = async () => {
     try {
         const allData = await request.json();
         if (allData !== undefined) {
-            date.innerHTML = '<b>Date: </b>' + allData.date;
+            date.innerHTML = 'Your journey will start today.';
+            if (allData.days > 0 ) {
+                date.innerHTML = 'Your journey will start in <b>' + allData.days + '</b> day(s).';
+            }
             destination.innerHTML = '<b>Location: </b>' + allData.city + ' (lat: ' + allData.lat + ' / lon: ' + allData.lon + ') in '+ allData.country;
             if (allData.imageUrl.length > 0) {
                 image.innerHTML = '<img src="' + allData.imageUrl + '" alt="' + allData.city + '">';
@@ -179,6 +183,7 @@ const updateUI = async () => {
             })
             // content.innerHTML = '<b>Weather forecast: </b>' + allData.weather[0].weather.description + '<span>' + allData.weather[0].weather.icon + '</span>';
             weatherForecast.appendChild(weatherFragment);
+            resultHolder.style.display = 'block';
         }
     } catch(error) {
         console.log('Error', error);
@@ -188,7 +193,7 @@ const updateUI = async () => {
 
 /* show message */
 const showMessage = (messageText) => {
-    const entryHolder = document.querySelector('#entryHolder');
+    const messageHolder = document.querySelector('#messageHolder');
     let message = document.querySelector('#message');
     if (message === null) {
         message = document.createElement('div');
@@ -197,42 +202,60 @@ const showMessage = (messageText) => {
     }
     message.setAttribute('id', 'message');
     message.innerHTML = '<b>Warning: </b>' + messageText;
-    entryHolder.appendChild(message);
-
+    messageHolder.appendChild(message);
+    resultHolder.style.display = 'block';
 }
 
 /* main action */
 function performAction(e) {
     const city = document.querySelector('#city').value;
     const start = document.querySelector('#start').value;
-
+    const startDate = new Date(start);
+    startDate.setHours(0);
     getGeoData(city)
         .then(function(geoData){
             if (geoData.geonames !== undefined) {
                 let geoname = geoData.geonames[0];
                 let lon = geoname.lng;
                 let lat = geoname.lat;
-                getWeatherData(lat, lon, start)
+                getWeatherData(lat, lon, startDate)
                     .then(function (weatherData){
-                        if (weatherData.data !== undefined) {
-                            getImageData(city)
-                                .then(function (imageData) {
-                                    let imageUrl = '';
-                                    if (parseInt(imageData.totalHits) > 0) {
-                                        let index = Math.floor(Math.random() * imageData.totalHits);
-                                        imageUrl = imageData.hits[index].webformatURL;
-                                    }
-                                    saveData({date: start, myCity: city, lon: lon, lat: lat, country: geoname.countryCode, imageUrl: imageUrl, weather: weatherData.data})
-                                        .then(
-                                            updateUI()
-                                        )
-                                });
+                        if (weatherData !== undefined) {
+                            if (weatherData.data !== undefined) {
+                                getImageData(city)
+                                    .then(function (imageData) {
+                                        let imageUrl = '';
+                                        if (parseInt(imageData.totalHits) > 0) {
+                                            let index = Math.floor(Math.random() * imageData.hits.length);
+                                            console.log(index);
+                                            imageUrl = imageData.hits[index].webformatURL;
+                                        }
+                                        // calculate date difference from milliseconds
+                                        const days = Math.floor((startDate - currDate) / 86400000);
+                                        saveData({
+                                            date: start,
+                                            days: days,
+                                            myCity: city,
+                                            lon: lon,
+                                            lat: lat,
+                                            country: geoname.countryCode,
+                                            imageUrl: imageUrl,
+                                            weather: weatherData.data
+                                        })
+                                            .then(
+                                                updateUI()
+                                            )
+                                    });
+                            } else {
+                                showMessage('weather data can not be retrieved - for unknown reason');
+                            }
                         } else {
-                            showMessage('weather data can not be retrieved - for unknown reason');
+                            console.log(weatherData);
+                            showMessage('weather data cannot be retrieved - service is unavailable');
                         }
                     })
             } else {
-                showMessage('weather data cannot be retrieved - ' + geoData.message + ' #' + geoData.cod);
+                showMessage('geo data cannot be retrieved - ' + geoData.message + ' #' + geoData.cod);
             }
         })
 }

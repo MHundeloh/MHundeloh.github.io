@@ -43,6 +43,7 @@ function addProjectData(request, response) {
     const data = request.body;
     projectData = {
         date : data.date,
+        days : data.days,
         city : data.myCity,
         lon : data.lon,
         lat : data.lat,
