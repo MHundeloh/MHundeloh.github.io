@@ -1,6 +1,7 @@
 const path = require('path')
 const webpack = require('webpack')
 const HtmlWebPackPlugin = require("html-webpack-plugin")
+const CopyWebPackPlugin = require("copy-webpack-plugin")
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const {CleanWebpackPlugin} = require("clean-webpack-plugin");
@@ -35,6 +36,11 @@ module.exports = {
         new HtmlWebPackPlugin({
             template: "./src/client/views/index.html",
             filename: "./index.html",
+        }),
+        new CopyWebPackPlugin({
+            patterns: [
+                { from: './src/client/media/favicon.ico', to: 'favicon.ico'}
+            ],
         }),
         new CleanWebpackPlugin({
             // Simulate the removal of files
