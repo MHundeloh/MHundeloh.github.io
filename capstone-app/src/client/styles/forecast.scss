@@ -1,0 +1,42 @@
+.day-wrapper {
+    padding-top: 20px;
+    display: grid;
+    grid-column-gap: 0;
+    grid-row-gap: 0;
+    justify-items: stretch;
+    grid-template-areas:
+        "date icon temp precipicon probicon"
+        "text icon feel precip prob"
+        "text icon feel precip prob";
+    grid-template-columns: 200px 150px 200px 150px 150px;
+    border-bottom: 1px solid #ffffff;
+}
+.col-date {
+    grid-area: date;
+}
+.col-text{
+    grid-area: text;
+}
+.col-icon {
+    grid-area: icon;
+}
+.col-temp {
+    grid-area: temp;
+    white-space: nowrap;
+}
+.col-feel {
+    grid-area: feel;
+    white-space: nowrap;
+}
+.col-precip-icon {
+    grid-area: precipicon;
+}
+.col-precip {
+    grid-area: precip;
+}
+.col-prob-icon {
+    grid-area: probicon;
+}
+.col-prob {
+    grid-area: prob;
+}

@@ -3,13 +3,13 @@ const weatherAppBaseUrl = 'https://api.weatherbit.io/v2.0/';
 const weatherIconUrl = 'https://www.weatherbit.io/static/img/icons/';
 const geoNameAppBaseUrl = 'http://api.geonames.org/searchJSON?maxRows=3&q=';
 const imageAppBaseUrl = 'https://pixabay.com/api/';
-const forecastDays = 7;
+const forecastDays = 7; // maximum for free WeatherBit accounts
 const resultHolder = document.querySelector('#result-holder');
 
-// Personal API Key for OpenWeatherMap API
+// Personal API Key for WeatherBit API
 // Note:
 // to avoid having an api key in source code the api key will be retrieved asynchronously
-// when generating the OpenWeather API url
+// when generating the WeatherBit API url
 
 // Create a new date instance dynamically with JS
 let d = new Date();
@@ -64,6 +64,7 @@ const geoNameUrlGenerator = async (city) => {
 /* Generate weather API url */
 const weatherUrlGenerator = async (lat, lon, days) => {
     /* forecast should be 'current' or 'forecast/daily' */
+    /* i.m.o. the retrieving the current weather doesn't make sense */
     let urlTimePart = 'forecast/daily';
     const apiKey = await getApiKey('wheatherbit');
     return weatherAppBaseUrl + urlTimePart + '?key=' + apiKey + '&lat=' + lat + '&lon=' + lon + '&days=' + days;
@@ -88,18 +89,12 @@ const getGeoData = async (city) => {
     }
 }
 
-/* Get weather data for given coordinates and date */
-const getWeatherData = async(lat, lon, startDate) => {
-    /* @todo calculate forecast from startDate */
-    // const startDate = new Date(startDateString);
-    // if (startDate > currDate) {
-    //     const forecast = 'false';
-    // } else {
-    //     const forecast = 'true';
-    // }
-    /* @todo calculate days from startDate */
-    const url = await weatherUrlGenerator(lat, lon, forecastDays);
-    console.log(url);
+/* Get weather data for given coordinates */
+const getWeatherData = async(lat, lon, mockup) => {
+    let url = '/mockup/weather';
+    if (mockup === false) {
+        url = await weatherUrlGenerator(lat, lon, forecastDays);
+    }
     const request = await fetch(url);
     try {
         return await request.json();
@@ -130,11 +125,11 @@ const getAllData = async () => {
     }
 }
 
-/* Update UI with weather data */
+/* Update UI with weather and location data */
 const updateUI = async () => {
-    const date = document.querySelector('#date');
     const destination = document.querySelector('#destination');
-    const image = document.querySelector('#image');
+    const imageDiv = document.querySelector('#image');
+    imageDiv.innerHTML = '';
     const weatherForecast = document.querySelector('#weather');
     weatherForecast.innerHTML = '';
     const message = document.querySelector('#message');
@@ -145,40 +140,84 @@ const updateUI = async () => {
     try {
         const allData = await request.json();
         if (allData !== undefined) {
-            date.innerHTML = 'Your journey will start today.';
-            if (allData.days > 0 ) {
-                date.innerHTML = 'Your journey will start in <b>' + allData.days + '</b> day(s).';
-            }
-            destination.innerHTML = '<b>Location: </b>' + allData.city + ' (lat: ' + allData.lat + ' / lon: ' + allData.lon + ') in '+ allData.country;
-            if (allData.imageUrl.length > 0) {
-                image.innerHTML = '<img src="' + allData.imageUrl + '" alt="' + allData.city + '">';
-            }
             const weatherFragment = document.createDocumentFragment();
-            const header = document.createElement('h3');
-            header.innerHTML = forecastDays + " Day Forecast";
+            destination.innerHTML = allData.city + ' in '+ allData.country + ' (lat: ' + allData.lat + ' / lon: ' + allData.lon + ')';
+            if (allData.imageUrl.length > 0) {
+                const figure = document.createElement('figure');
+                const image = document.createElement('img');
+                image.src = allData.imageUrl;
+                image.alt = 'picture of ' + allData.city;
+                image.title = 'picture of ' + allData.city;
+                figure.appendChild(image);
+                const figcaption = document.createElement('figcaption');
+                figcaption.innerText = 'A short glance at ' + allData.city;
+                figure.appendChild(figcaption);
+                imageDiv.appendChild(figure);
+            }
+            const header = document.createElement('h2');
+            let headerText = 'Your journey starts today';
+            if (allData.days > 0) {
+                let plurals = '';
+                if (allData.days > 1) {
+                    plurals = 's';
+                }
+                headerText = 'Your journey will start in ' + allData.days + ' day' + plurals;
+            }
+            header.innerHTML = headerText + ' - ' + forecastDays + " day weather forecast for your destination";
             weatherFragment.appendChild(header);
             allData.weather.forEach((entry) => {
                 const daysDiv = document.createElement('div');
-                daysDiv.classList.add('days');
-                const dayDiv = document.createElement('div');
-                dayDiv.classList.add('day');
-                dayDiv.innerHTML = entry.valid_date;
-                daysDiv.appendChild(dayDiv);
-                const forecastDiv = document.createElement('div');
+                daysDiv.classList.add('day-wrapper');
+                const dateDiv = document.createElement('div');
+                dateDiv.classList.add('col-date');
+                dateDiv.innerHTML = entry.valid_date;
+                daysDiv.appendChild(dateDiv);
+
+                const textDiv = document.createElement('div');
+                const forecastText = document.createTextNode(entry.weather.description);
+                textDiv.classList.add('col-text');
+                textDiv.appendChild(forecastText);
+                daysDiv.appendChild(textDiv);
+
+                const iconDiv = document.createElement('div');
                 const iconUrl = weatherIconUrl + entry.weather.icon + '.png';
                 const iconImage = document.createElement('img');
                 iconImage.src = iconUrl;
                 iconImage.alt = entry.weather.description;
-                const forecastText = document.createTextNode(entry.weather.description);
-                forecastDiv.classList.add('forecast');
-                forecastDiv.appendChild(iconImage);
-                forecastDiv.appendChild(forecastText);
-                daysDiv.appendChild(forecastDiv);
+                iconDiv.classList.add('col-icon');
+                iconDiv.appendChild(iconImage);
+                daysDiv.appendChild(iconDiv);
+
                 const tempDiv = document.createElement('div');
-                tempDiv.classList.add('temp');
-                const tempText = document.createTextNode('Temp: ' + entry.app_max_temp + ' °C (max), ' + entry.app_min_temp + ' °C (min), Precip: ' + Math.round(entry.precip) + ' l/sqm (' + entry.pop + '%)');
-                tempDiv.appendChild(tempText);
+                tempDiv.classList.add('col-temp');
+                tempDiv.innerHTML = '<span class="text-large">'+ entry.high_temp + ' °C</span><span class="text-small">/ '+ entry.low_temp + ' °C' +'</span>';
                 daysDiv.appendChild(tempDiv);
+
+                const feelDiv = document.createElement('div');
+                feelDiv.classList.add('col-feel');
+                feelDiv.innerHTML = '<span class="text-small">like '+ entry.app_max_temp + ' °C</span><span class="text-small">/ '+ entry.app_min_temp + ' °C' +'</span>';
+                daysDiv.appendChild(feelDiv);
+
+                const precipIconDiv = document.createElement('div');
+                precipIconDiv.classList.add('col-precip-icon');
+                precipIconDiv.innerHTML = '<span class="text-small">Precipitation</span>';
+                daysDiv.appendChild(precipIconDiv);
+
+                const precipDiv = document.createElement('div');
+                precipDiv.classList.add('col-precip');
+                precipDiv.innerText = Math.round(entry.precip) + ' l/m²';
+                daysDiv.appendChild(precipDiv);
+
+                const probIconDiv = document.createElement('div');
+                probIconDiv.classList.add('col-prob-icon');
+                probIconDiv.innerHTML = '<span class="text-small">Probability</span>';
+                daysDiv.appendChild(probIconDiv);
+
+                const probDiv = document.createElement('div');
+                probDiv.classList.add('col-prob');
+                probDiv.innerText = entry.pop + '%';
+                daysDiv.appendChild(probDiv);
+
                 weatherFragment.appendChild(daysDiv);
             })
             // content.innerHTML = '<b>Weather forecast: </b>' + allData.weather[0].weather.description + '<span>' + allData.weather[0].weather.icon + '</span>';
@@ -212,13 +251,16 @@ function performAction(e) {
     const start = document.querySelector('#start').value;
     const startDate = new Date(start);
     startDate.setHours(0);
+    // calculate date difference from milliseconds
+    const days = Math.floor((startDate - currDate) / 86400000);
+
     getGeoData(city)
         .then(function(geoData){
             if (geoData.geonames !== undefined) {
                 let geoname = geoData.geonames[0];
                 let lon = geoname.lng;
                 let lat = geoname.lat;
-                getWeatherData(lat, lon, startDate)
+                getWeatherData(lat, lon, false)
                     .then(function (weatherData){
                         if (weatherData !== undefined) {
                             if (weatherData.data !== undefined) {
@@ -230,15 +272,13 @@ function performAction(e) {
                                             console.log(index);
                                             imageUrl = imageData.hits[index].webformatURL;
                                         }
-                                        // calculate date difference from milliseconds
-                                        const days = Math.floor((startDate - currDate) / 86400000);
                                         saveData({
                                             date: start,
                                             days: days,
-                                            myCity: city,
+                                            myCity: weatherData.city_name,
                                             lon: lon,
                                             lat: lat,
-                                            country: geoname.countryCode,
+                                            country: weatherData.country_code,
                                             imageUrl: imageUrl,
                                             weather: weatherData.data
                                         })
