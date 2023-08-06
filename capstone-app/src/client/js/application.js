@@ -135,8 +135,6 @@ const updateUI = async () => {
     const destination = document.querySelector('#destination');
     const imageDiv = document.querySelector('#image');
     imageDiv.innerHTML = '';
-    const weatherCurrent = document.querySelector('#current');
-    weatherCurrent.innerHTML = '';
     const weatherForecast = document.querySelector('#forecast');
     weatherForecast.innerHTML = '';
     const message = document.querySelector('#message');
@@ -225,7 +223,7 @@ const getIconDiv = (weather) => {
 const getPrecipitationIconDiv = () => {
     const precipIconDiv = document.createElement('div');
     precipIconDiv.classList.add('col-precip-icon');
-    precipIconDiv.innerHTML = '<span class="text-small">Precipitation</span>';
+    precipIconDiv.innerText = 'Precipitation';
     return precipIconDiv;
 }
 
@@ -241,7 +239,7 @@ const getPrecipitationDiv = (precip) => {
 const getProbabilityIconDiv = () => {
     const probIconDiv = document.createElement('div');
     probIconDiv.classList.add('col-prob-icon');
-    probIconDiv.innerHTML = '<span class="text-small">Probability</span>';
+    probIconDiv.innerText = 'Probability';
     return probIconDiv;
 }
 
@@ -358,11 +356,11 @@ function performAction() {
                 let lon = geoname.lng;
                 let lat = geoname.lat;
                 // get current weather
-                getWeatherData(lat, lon, 0, false)
+                getWeatherData(lat, lon, 0, true)
                     .then(function (currentWeatherData){
                         if (currentWeatherData !== undefined) {
                             if (currentWeatherData.data !== undefined) {
-                                getWeatherData(lat, lon, forecastDays, false)
+                                getWeatherData(lat, lon, forecastDays, true)
                                     .then(function(forecastWeatherData){
                                         if (forecastWeatherData !== undefined && forecastWeatherData.data !== undefined){
                                             getImageData(city)

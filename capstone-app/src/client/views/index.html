@@ -31,7 +31,6 @@
                 <h2 id="title">Here comes the weather for <span id="destination"></span></h2>
                 <div class ="entry">
                     <div id="image"></div>
-                    <div id="current"></div>
                     <div id="forecast"></div>
                 </div>
                 <div id="messageHolder"></div>
@@ -41,4 +40,13 @@
             <p>(c) Matthias Hundeloh 2023</p>
         </footer>
     </body>
+    <script>
+        // Check if workers are supported
+        if ('serviceWorker' in navigator) {
+            // Use the window load event to keep the page load performant
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js');
+            })
+        }
+    </script>
 </html>

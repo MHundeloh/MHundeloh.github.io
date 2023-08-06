@@ -6,7 +6,7 @@ body{
     flex-direction: column;
     min-height: 100vh;
     background: #eeeeee;
-    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    //font-family: -apple-system, BlinkMacSystemFont, sans-serif;
     font-family: 'Oswald', sans-serif;
     font-size: 20px;
     color: $primary-color;
@@ -47,8 +47,8 @@ h3{
 
 .input-group {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
 }
 
 #result-holder {
@@ -81,21 +81,21 @@ h3{
 
 }
 
-/*  Basic Styling To Override Default For Basic HTML Elements */
 label{
-    display:block;
-    font-size: 1.2em;
+    display: block;
+    font-size: 2em;
 }
 
 input{
     display:block;
     height: 60px;
-    width: 320px;
+    width: 100%;
     background:#fffff8;
     color: #f0d43a;
-    font-size: 1em;
+    font-size: 2em;
     font-family: 'Oswald', sans-serif;
     border: none;
+    margin-bottom: 20px;
 }
 
 button{
@@ -103,7 +103,7 @@ button{
     height: 100px;
     background: #3b4a6b;
     color: #f0d43a;
-    font-size: 1.3em;
+    font-size: 2em;
     font-family: 'Oswald', sans-serif;
     border: none;
     box-shadow: 2px 4px 5px #444;
@@ -126,6 +126,15 @@ select:focus,
 button:focus {
     outline: none;
 }
+
+button:hover {
+    box-shadow: -2px -4px 5px #ffffff;
+}
+
+input:focus,
+input:hover {
+    border: 1px solid $primary-color;
+}
 /* Style for Placeholder Text*/
 ::placeholder { /* Firefox, Chrome, Opera */ 
     color: #f0d43a; 
@@ -143,4 +152,19 @@ button:focus {
     color: #f0d43a; 
     font-family: 'Oswald', sans-serif;
 
-} 
+}
+@media (min-width: 1025px) {
+    label,
+    input,
+    button {
+        font-size: inherit;
+    }
+    input {
+        width: 320px;
+    }
+    .input-group {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

@@ -5,11 +5,18 @@
     grid-row-gap: 0;
     justify-items: stretch;
     grid-template-areas:
-        "date icon temp precipicon probicon"
-        "text icon feel precip prob"
-        "text icon feel precip prob";
-    grid-template-columns: 200px 150px 200px 150px 150px;
+        "date icon temp precipicon"
+        "text icon feel precip"
+        "text icon feel prob";
+    grid-template-columns: 250px 150px 250px 220px;
     border-bottom: 1px solid #ffffff;
+    &.current {
+        grid-template-areas:
+        "date icon temp precipicon"
+        "text icon feel precip"
+        "text icon feel wind";
+    }
+    font-size: 0.7em;
 }
 .col-date {
     grid-area: date;
@@ -22,11 +29,9 @@
 }
 .col-temp {
     grid-area: temp;
-    white-space: nowrap;
 }
 .col-feel {
     grid-area: feel;
-    white-space: nowrap;
 }
 .col-precip-icon {
     grid-area: precipicon;
@@ -36,7 +41,48 @@
 }
 .col-prob-icon {
     grid-area: probicon;
+    display: none;
 }
 .col-prob {
     grid-area: prob;
+}
+.col-wind-icon {
+    grid-area: windicon;
+    display: none;
+}
+.col-wind {
+    grid-area: wind;
+    display: none;
+}
+
+@media (min-width: 1025px) {
+    .day-wrapper {
+        grid-template-areas:
+        "date icon temp precipicon probicon"
+        "text icon feel precip prob"
+        "text icon feel precip prob";
+        grid-template-columns: 200px 150px 200px 150px 150px;
+        &.current {
+            grid-template-areas:
+        "date icon temp precipicon windicon"
+        "text icon feel precip wind"
+        "text icon feel precip wind";
+        }
+        font-size: 1em;
+    }
+    .col-temp {
+        white-space: nowrap;
+    }
+    .col-feel {
+        white-space: nowrap;
+    }
+    .col-prob-icon {
+        display: block;
+    }
+    .col-wind-icon {
+        display: block;
+    }
+    .col-wind {
+        display: block;
+    }
 }
