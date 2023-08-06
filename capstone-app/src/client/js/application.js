@@ -356,11 +356,11 @@ function performAction() {
                 let lon = geoname.lng;
                 let lat = geoname.lat;
                 // get current weather
-                getWeatherData(lat, lon, 0, true)
+                getWeatherData(lat, lon, 0, false)
                     .then(function (currentWeatherData){
                         if (currentWeatherData !== undefined) {
                             if (currentWeatherData.data !== undefined) {
-                                getWeatherData(lat, lon, forecastDays, true)
+                                getWeatherData(lat, lon, forecastDays, false)
                                     .then(function(forecastWeatherData){
                                         if (forecastWeatherData !== undefined && forecastWeatherData.data !== undefined){
                                             getImageData(city)
